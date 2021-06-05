@@ -1,4 +1,4 @@
-My Assumption
+**My Assumption**
 
 •	One Admin created in database manually, with Role 1 and Designation Admin, Department IT, role 2 is for rest of the user.
 
@@ -20,10 +20,23 @@ My Assumption
 
 Technology Stack that I am using: Frontend-Angular, Backend- Node js and Database- MS Sql Server.
 
-For running Angular- 1)npm install, 2)ng s 
 
-For running Node- 1)npm install,2)Change connection string inside NodeApi folder in Sqlconnect.js with restpect to your SQL server, 3)npm run serve
+**Running Instruction**
 
+For running Angular- 
+1)npm install 
+2)ng s 
+
+For running Node- 
+1)npm install
+2)Change connection string inside NodeApi folder in Sqlconnect.js with restpect to your SQL server 
+3)npm run serve
+
+
+For database 
+1) Use the Empdata.xlsx two import data into Sql server and create the table with name emptbl or create the table structure for emptbl from the script inside DB_MSSQL/Script DB
+2) Create perfomanceTbl from the script inside DB_MSSQL/Script DB
+3) Don't change the tables and stored procedure names.
 
 
 
