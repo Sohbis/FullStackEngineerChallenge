@@ -1,0 +1,75 @@
+<Section>
+  <div class="card">
+    <div class="card-body">
+      <div class="empForm">
+        <div class="text-right">
+          <button type="button" class="btn-sm btn-outline-dark" (click)="back()">Back</button>
+        </div>
+        <h3 style="display: inline-block;">{{header}}</h3>    
+        <form [formGroup]="empForm">
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <div class="">
+                <label for="Firstname">Firstname</label>
+                <input type="text" class="form-control" placeholder="Firstname" aria-label="First name"
+                  [class.is-invalid]="firstName.invalid && firstName.touched" formControlName="firstName"
+                  class="form-control">
+              </div>
+              <div *ngIf="firstName.invalid && firstName.touched">
+                <small class="text-danger" *ngIf="firstName.errors?.required">FirstName is required</small>
+              </div>
+            </div>
+            <div class="form-group col-sm-6">
+              <div class="">
+                <label for="Firstname">Lastname</label>
+                <input type="text" class="form-control" placeholder="Lastname" aria-label="Last name"
+                  [class.is-invalid]="lastName.invalid && lastName.touched" formControlName="lastName"
+                  class="form-control">
+              </div>
+              <div *ngIf="lastName.invalid && lastName.touched">
+                <small class="text-danger" *ngIf="lastName.errors?.required">LastName is required</small>
+              </div>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label for="Firstname">Department</label>
+              <select name="" id=""  class="form-control"  [class.is-invalid]="department.invalid && department.touched" formControlName="department">
+                <option value="" disabled select>Select Department</option>
+                  <ng-container *ngFor="let item of departmentArr">
+                    <option value={{item}}>
+                      {{item}}
+                    </option>
+                  </ng-container>
+              </select>
+              <div *ngIf="department.invalid && department.touched">
+                <small class="text-danger" *ngIf="department.errors?.required">Department is required</small>
+              </div>
+            </div>
+
+            <div class="form-group col-sm-6">
+              <div class="">
+                <label for="Firstname">Designation</label>
+                <input type="text" class="form-control" placeholder="Designation" aria-label="Designation"
+                  [class.is-invalid]="designation.invalid && designation.touched" formControlName="designation"
+                  class="form-control">
+              </div>
+              <div *ngIf="designation.invalid && designation.touched">
+                <small class="text-danger" *ngIf="designation.errors?.required">Designation is required</small>
+              </div>
+            </div>
+
+
+          </div>
+        </form>
+        <div class="text-right">
+          <button type="button" class="btn btn-outline-danger" (click)="clear()">Clear</button>
+          <button type="button" class="btn btn-outline-success" [disabled]="!empForm.valid"
+            (click)="submit()">{{action}}</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</Section>

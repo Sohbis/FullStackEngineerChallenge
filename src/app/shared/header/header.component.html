@@ -1,0 +1,49 @@
+<!-- <h1>
+    Hello
+  </h1> -->
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+  <a class="navbar-brand" href="#"><Strong>Baymax</Strong> </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+
+        <a class="nav-link" [routerLink]="['/home']">
+          Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item dropdown" *ngIf="auth.getAccessType()==1">
+        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+          Employee
+        </a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" [routerLink]="['/employeeView']" [routerLinkActive]="['active']">View/Update
+            Employees</a>
+          <a class="dropdown-item" [routerLink]="['/employeeAdd']" [routerLinkActive]="['active']">Add New Employee</a>
+
+        </div>
+      </li>
+      <li class="nav-item dropdown" *ngIf="auth.getAccessType()==1">
+        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+          Review Performance
+        </a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" [routerLink]="['/viewReview']" [routerLinkActive]="['active']">View/Update Review</a>
+          <a class="dropdown-item" [routerLink]="['/addReview']" [routerLinkActive]="['active']">Add Review</a>
+          <!-- <a class="dropdown-item" [routerLink]="['/addParticipant']" [routerLinkActive]="['active']">Add
+            Participant</a> -->
+        </div>
+      </li>
+      <li class="nav-item " *ngIf="auth.getAccessType()==2">
+        <a class="nav-link" [routerLink]="['/viewReview']"> Performance Feedback </a>
+      </li>
+    </ul>
+
+    <button class="btn btn-outline-danger btn-sm" type="submit" (click)="auth.logout()">Log out</button>
+
+  </div>
+</nav>
+

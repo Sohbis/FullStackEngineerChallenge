@@ -1,0 +1,52 @@
+<section>
+
+  <div class="card">
+    <div class="card-body">
+      <form [formGroup]="loginForm" (ngSubmit)="next()">
+        <h2 class=" font-weight-bold text-justify">Login</h2>
+        <!-- {{isNewUser}} -->
+        <ng-container *ngIf="!isNewUser">
+          <div class="form-group">
+            <input type="text" placeholder="UserID" [class.is-invalid]="userID.invalid && userID.touched"
+              formControlName="userID" class="form-control">
+            <div *ngIf="userID.invalid && userID.touched">
+              <small class="text-danger" *ngIf="userID.errors?.required">User ID is required</small>
+              <small class="text-danger" *ngIf="userID.errors?.pattern">Invalid Format</small>
+            </div>
+          </div>
+        </ng-container>
+        <div class="form-group" formGroupName="passwords">
+          <div class="form-group">
+            <input #pass class="form-control" formControlName="password" 
+            type="password" [class.is-invalid]="password.invalid && password.touched" placeholder="Password">
+
+            <div *ngIf="password.invalid && password.touched">
+              <small class="text-danger" *ngIf="password.errors?.required">Password is required</small>
+
+            </div>
+          </div>
+          <ng-container *ngIf="isNewUser">
+            <div class="form-group">
+
+              <input class="form-control" formControlName="confirmPassword" type="password" 
+              [class.is-invalid]=" confirmPassword.invalid && confirmPassword.touched && loginForm.get('passwords').errors?.passwordNotMatch" placeholder="Confirm Password">
+              <div *ngIf="confirmPassword.touched">
+                <small class="text-danger" *ngIf="loginForm.get('passwords').errors?.passwordNotMatch">Passwords do not match</small>
+                <small class="text-danger" *ngIf="confirmPassword.errors?.minLength">Passwords do not match</small>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+
+        <div class="text-right">
+          <button type="button" class="btn btn-outline-dark" [disabled]="!loginForm.valid" type="submit">Next</button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+  <!-- <pre>
+    Form Error - {{ loginForm.get('passwords').errors | json }}
+  </pre> -->
+</section>

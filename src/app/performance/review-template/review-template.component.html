@@ -1,0 +1,192 @@
+<Section>
+  <div class="card"> 
+   <div class="card-body">
+      <div class="reviewForm">
+        <h3 style="display: inline-flex;">{{action}}</h3> 
+        <form [formGroup]="reviewForm">
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label for="">Department<span class="req">*</span></label>
+              <!-- <ng-container *ngIf="action!=='Update Review'; else elseTemplate"> -->
+                <select name=""  class="form-control" type="text"
+                [class.is-invalid]="department.invalid && department.touched"
+                 formControlName="department"
+                 (change)="selectDept($event.target.value)">
+                 <option value="" disabled selected>Select Department</option>
+                 <ng-container *ngFor="let item of departmentArr">
+                   <option value={{item}}>
+                     {{item}}
+                   </option>
+                 </ng-container>
+               </select>
+               <div *ngIf="department.invalid && department.touched">
+                 <small class="text-danger" *ngIf="department.errors?.required">Department is required</small>
+               </div>
+              <!-- </ng-container> -->
+              <!-- <ng-template #elseTemplate>
+                {{data.Department}}
+              </ng-template>             -->
+            </div>
+
+            <div class="form-group col-sm-6">
+              <label for="Firstname">Employee Name<span class="req">*</span></label>
+              <!-- <ng-container *ngIf="action!=='Update Review'; else elseTemplate1"> -->
+                <input type="text" class="form-control" placeholder="Enter Firstname" aria-label="First name"
+                [class.is-invalid]="firstName.invalid && firstName.touched" formControlName="firstName"
+                class="form-control"
+                [typeahead]="names"
+                typeaheadOptionField="Firstname"
+                (typeaheadNoResults)="typeaheadNoResults($event)"
+                (typeaheadOnSelect)="onSelect($event)"
+                [typeaheadMinLength]="0"
+                [typeaheadScrollable]="true"
+                [typeaheadOptionsInScrollableView]="5"
+                (change)="nameChange()"
+                >
+              <div *ngIf="firstName.invalid && firstName.touched">
+                <small class="text-danger" *ngIf="firstName.errors?.required">Firstname is required</small>
+                <small class="text-danger" *ngIf="firstName.errors?.err">{{firstName.errors?.err.value}}</small>
+              </div>
+              <!-- </ng-container> -->
+              <!-- <ng-template #elseTemplate1>
+                {{data.Lastname}},{{data.Firstname}}  
+              </ng-template> -->
+                           
+            </div>
+          </div>
+
+          <div class="row"> 
+            <div class="form-group col-sm-6">
+              <label for="Firstname">Designation </label>
+              <!-- <ng-container *ngIf="action!=='Update Review'; else elseTemplate">
+                <input type="text" class="form-control" [placeholder]="designation">
+              </ng-container>
+              <ng-template #elseTemplate>
+                <input type="text" class="form-control" [placeholder]="designation">
+              </ng-template> -->
+              
+              <input type="text" class="form-control"  disabled [placeholder]="designation">
+             
+            </div>
+            <div class="form-group col-sm-6" *ngIf="action!=='Submit Feedback';">
+              <label for="Firstname">Add Reviewer  <a>
+                <i class="fa fa-info-circle" title="Add the Department manager to take part in the performance review of the selected employee"></i>
+              </a></label>
+              <input type="text" class="form-control" placeholder="Enter Reviewer" aria-label="First name"
+                [class.is-invalid]="reviewer.invalid && reviewer.touched" formControlName="reviewer"
+                class="form-control"
+                [typeahead]="managerName"
+                typeaheadOptionField="Firstname"
+                (typeaheadNoResults)="typeaheadNoResults($event)"
+                (typeaheadOnSelect)="onSelectReviewer($event)"
+                [typeaheadMinLength]="0"
+                [typeaheadScrollable]="true"
+                [typeaheadOptionsInScrollableView]="5"
+                (change)="nameChange()"
+                >
+              <div *ngIf="reviewer.invalid && reviewer.touched">
+                <!-- <small class="text-danger" *ngIf="reviewer.errors?.required">reviewer is required</small> -->
+                <small class="text-danger" *ngIf="reviewer.errors?.err">{{reviewer.errors?.err.value}}</small>
+              </div>
+            </div>
+          </div>
+         <div class="row">
+           <div class="col-sm-6 offset-sm-3 text-center">
+            <strong><u> Perfomance metrics <i class="fa fa-info-circle" title="Metrics are mandatory if no manager is not selected as a reviewer"></i> </u></strong>   
+           </div>
+         </div>
+         <br>
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label for="">Communication<span class="req1">*</span></label>
+              <select name=""  class="form-control"
+                [class.is-invalid]="communication.invalid && communication.touched" formControlName="communication">
+                <option value="" disabled selected>Select rating</option>
+                <ng-container *ngFor="let item of ratingArr">
+                  <option value={{item}}>
+                    {{item}}
+                  </option>
+                </ng-container>
+              </select>
+              <div *ngIf="communication.invalid && communication.touched">
+                <small class="text-danger" *ngIf="communication.errors?.required">Rating is required</small>
+              </div>
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="">Project Delivery<span class="req1">*</span></label>
+              <select name=""  class="form-control"
+                [class.is-invalid]="projectDelivery.invalid && projectDelivery.touched"
+                formControlName="projectDelivery">
+                <option value="" disabled selected>Select rating</option>
+                <ng-container *ngFor="let item of ratingArr">
+                  <option value={{item}}>
+                    {{item}}
+                  </option>
+                </ng-container>
+              </select>
+              <div *ngIf="projectDelivery.invalid && projectDelivery.touched">
+                <small class="text-danger" *ngIf="projectDelivery.errors?.required">Rating is required</small>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label for="">Self Initiative<span class="req1">*</span></label>
+              <select name=""  class="form-control"
+                [class.is-invalid]="selfInitiative.invalid && selfInitiative.touched" formControlName="selfInitiative"
+                >
+                <option value="" disabled selected>Select rating</option>
+                <ng-container *ngFor="let item of ratingArr">
+                  <option value={{item}}>
+                    {{item}}
+                  </option>
+                </ng-container>
+              </select>
+              <div *ngIf="selfInitiative.invalid && selfInitiative.touched">
+                <small class="text-danger" *ngIf="selfInitiative.errors?.required">Self Initiative rating is
+                  required</small>
+              </div>
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="">TAT<span class="req1">*</span></label>
+              <select name=""  class="form-control" [class.is-invalid]="tat.invalid && tat.touched"
+                formControlName="tat">
+                <option value="" disabled selected>Select rating</option>
+                <ng-container *ngFor="let item of ratingArr">
+                  <option value={{item}}>
+                    {{item}}
+                  </option>
+                </ng-container>
+              </select>
+              <div *ngIf="tat.invalid && tat.touched">
+                <small class="text-danger" *ngIf="tat.errors?.required">Rating is required</small>
+              </div>
+            </div>
+
+          </div>
+          <div class="text-left">
+            <!-- <p> <Strong><u> Performance Metrics </u></Strong></p> -->
+            <ul class="list-inline" style="font-size: 12px;margin-bottom: 0;">
+                <li class="list-inline-item">*5 Excellents</li>
+                <li class="list-inline-item">*4 Good</li>
+                <li class="list-inline-item">*3 Statisfactory</li>
+                <li class="list-inline-item">*2 Poor</li>
+                <li class="list-inline-item">*1 Unstatisfactory</li>
+             </ul>
+          </div>
+          <div class="text-right">
+            <button type="button" class="btn btn-outline-danger" (click)="clear()">Clear</button>
+            <button type="button" class="btn btn-outline-success" [disabled]="!reviewForm.valid"
+              (click)="submit()">{{action}}</button>
+          </div>
+        </form>
+     
+      </div>
+    
+    </div>
+
+  </div>
+</Section>
+

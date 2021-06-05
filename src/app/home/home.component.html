@@ -1,0 +1,75 @@
+<h2 style="color: rgb(22, 190, 22);padding:2.5%;text-align: center;">
+  Welcome {{auth.getLoginUser().Lastname}},{{auth.getLoginUser().Firstname}}
+</h2>
+<ng-container *ngIf="auth.getAccessType()==1; else elseTemplate">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card h-100">
+          <div class="card-body">
+            <h4 class="card-title">Add Employee</h4>
+            <p class="card-text">
+              You can add new employees in this section
+            </p>
+            <a [routerLink]="['/employeeAdd']" class="btn btn-success">GO</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card h-100">
+          <div class="card-body">
+            <h4 class="card-title">View Employee</h4>
+            <p class="card-text">
+              You can view all the current employees and update them in this section
+            </p>
+            <a [routerLink]="['/employeeView']" class="btn btn-success">GO</a>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+    <!-- <div class="w-100 d-none d-md-block"></div> -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card h-100">
+          <div class="card-body">
+            <h4 class="card-title">Add Performance Review</h4>
+            <p class="card-text">
+              You can add employees performance review in this section
+            </p>
+            <a [routerLink]="['/addReview']" class="btn btn-success">GO</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card h-100">
+          <div class="card-body">
+            <h4 class="card-title">View Performance Review</h4>
+            <p class="card-text">
+              You can view and update employees performance reviews for each month in this section
+            </p>
+            <a [routerLink]="['/viewReview']" class="btn btn-success">GO</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</ng-container>
+<ng-template #elseTemplate>
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <h4 class="card-title">View Pending Review</h4>
+        <p class="card-text">
+          You can view and update the performance review of the employees that are aligned with you
+        </p>
+        <a [routerLink]="['/viewReview']" class="btn btn-success">GO</a>
+      </div>
+    </div>
+  </div>
+</div>
+</ng-template>
