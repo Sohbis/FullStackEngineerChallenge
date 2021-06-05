@@ -1,6 +1,6 @@
 My Assumption
 
-•	One Admin created in database manually, with Role 1 and Designation Admin, Department IT.
+•	One Admin created in database manually, with Role 1 and Designation Admin, Department IT, role 2 is for rest of the user.
 
 •	When a new user is created by Admin a default password is set i.e., 123 for simplicity sake. In real world scenario a password will be send directly to the new user. But here I am using 123 as a default password. So when the new user will login he/she will be prompted to change the default password that is generated at the time of new user creation. A new employee can login after changing the default password.
 
