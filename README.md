@@ -1,12 +1,20 @@
 My Assumption
 •	One Admin created in database manually, with Role 1 and Designation Admin, Department IT.
+
 •	When a new user is created by Admin a default password is set i.e., 123 for simplicity sake. In real world scenario a password will be send directly to the new user. But here I am using 123 as a default password. So when the new user will login he/she will be prompted to change the default password that is generated at the time of new user creation. A new employee can login after changing the default password.
+
 •	For adding participant for performance review of any other employee, Admin need to select the department first and on the basis of that reviewers/participant names will be shown in the ‘Add Reviewer’ field. 
+
 •	Note I am only allowing selected department manager to be added as reviewer in this section.
+
 •	Note If Admin select a manager for his performance review, in such case admin cannot select any reviewer. 
+
 •	I am only doing soft delete of employees in the DB changing their status to 0.
+
 •	Note there are 3 Status 0 – inactive/removed, 1 – active, 2 – new employee.
+
 •	Currently for an employee, performance review can added only be added once per month. However, an Admin can update it any time.
+
 •	Currently using static values for department - [IT,Finance,HR] .
 
 Technology Stack that I am using: Frontend-Angular, Backend- Node js and Database- MS Sql Server.
