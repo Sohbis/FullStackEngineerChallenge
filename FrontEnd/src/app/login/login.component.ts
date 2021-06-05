@@ -69,8 +69,9 @@ export class LoginComponent implements OnInit {
       }
       console.log('isNewUser', this.isNewUser)
     }
-      , error => {
+      , error => {     
         console.log('e', error.error)
+        alert(error.error?error.error:'Invalid credentails')
       }
     )
   }

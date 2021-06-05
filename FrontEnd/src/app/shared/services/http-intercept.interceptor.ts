@@ -26,6 +26,7 @@ export class HttpInterceptInterceptor implements HttpInterceptor {
     }
     return next.handle(modifyRequest).pipe(retry(1),catchError((_error:HttpErrorResponse)=>{
       console.log('intercept error')
+      alert(_error.error?_error.error:'Something Went Wrong')
       let errorMsg=''
       this.auth.logout()
       return throwError(errorMsg)
