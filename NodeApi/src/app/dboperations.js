@@ -1,32 +1,6 @@
 let config = require('./sqlconnect')
 let sql = require("mssql")
 
-// async function getRecords() {
-//     let pool = await sql.connect(config)
-//     try {
-        
-//         let data = await pool.query`select * from emptbl;`
-//         console.log('data', data)
-//         return data.recordset
-//     } catch (err) {
-//         // ... error checks
-//     }
-// }
-// async function username(body) {
-//     console.log('body', body.uname)
-//     let pool = await sql.connect(config)
-//     try {       
-//         let data = await pool.request()
-//         .input('uname',sql.VarChar(255),body.uname)
-//         .input('flag',sql.VarChar(255),'login')
-//         .execute('sp_Emp')
-//         return {'success':true, 'data':data.recordset }
-
-//     } catch (err) {
-//         // ... error checks
-//     }
-// }
-
 async function getEmp(body) {
     console.log('getEmp body', body)
     let pool = await sql.connect(config)
@@ -39,6 +13,7 @@ async function getEmp(body) {
 
     } catch (err) {
         // ... error checks
+        return {'success':false, 'msg':err }
     }
 }
 
@@ -190,6 +165,7 @@ async function addReview(body) {
     } catch (err) {
         // ... error checks
         console.log('err addReview', err)
+        return{'success':true,'msg':err}
     }
 }
 

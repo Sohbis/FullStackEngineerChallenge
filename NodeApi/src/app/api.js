@@ -9,9 +9,6 @@ const jwt = require('jsonwebtoken');
 app.use(cors())
 app.use(express.json());
 let user=0
-// app.use(express.urlencoded({
-//     extended: true
-// }));
 
 app.use('/api', router)
 app.use(
@@ -22,32 +19,6 @@ app.use(
     })
 )
 app.disable('x-powered-by')
-
-// router.route('/username').post((req, res) => {
-//     //Validation need to be added
-    
-//     // if(req.body.uname){
-//     //     console.log('username', req.body)
-//     // }
-//     // else{
-//     //     console.log('password', req.body)
-//     // }
-//     dboperations.login(req.body).then(result => {
-//         console.log('res.statusCode', res.statusCode)
-//         if (result.data.length == 0) {
-//             res.status(401).send({
-//                 msg: 'Invalid Credential'
-//             })
-//         }
-//         else{
-//             const token=jwt.sign(result.data[0].Role,process.env.ACCESS_TOKEN_SECRET)
-//             res.send({success:true,token:token})
-//         }
-        
-
-//     })
-
-// })
 
 router.route('/login').post((req, res) => {
     // console.log('login', req.body)

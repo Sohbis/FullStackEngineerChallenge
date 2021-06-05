@@ -39,26 +39,26 @@ export class ReviewTemplateComponent implements OnInit {
       selfInitiative: ['', [Validators.required]],
       tat: ['', [Validators.required]],
     })
-    this.saveForm=this.reviewForm.value
+    this.saveForm = this.reviewForm.value
 
     if (this.data) {
       this.getPreviousData()
     }
   }
 
-  getPreviousData(){
+  getPreviousData() {
     console.log('Received data', this.data)
-      this.department.setValue(this.data.Department)
-      this.firstName.setValue(this.data.Firstname)
-      this.communication.setValue(this.data.Communication)
-      this.projectDelivery.setValue(this.data['Project Delivery'])
-      this.selfInitiative.setValue(this.data['Self Initiative'])
-      this.tat.setValue(this.data.TAT)
-      this.id = this.data.ID
-      this.designation = this.data.Designation
-      this.getNamesOFEmp(this.data.Department)
-      this.department.disable()
-      this.firstName.disable()
+    this.department.setValue(this.data.Department)
+    this.firstName.setValue(this.data.Firstname)
+    this.communication.setValue(this.data.Communication)
+    this.projectDelivery.setValue(this.data['Project Delivery'])
+    this.selfInitiative.setValue(this.data['Self Initiative'])
+    this.tat.setValue(this.data.TAT)
+    this.id = this.data.ID
+    this.designation = this.data.Designation
+    this.getNamesOFEmp(this.data.Department)
+    this.department.disable()
+    this.firstName.disable()
   }
 
   get firstName() {
@@ -92,25 +92,39 @@ export class ReviewTemplateComponent implements OnInit {
   }
 
   getNamesOFEmp(e) {
-    let name:string=''
     this.api.empNameByDept('/empNameByDept', { department: e }).subscribe((d: any) => {
       console.log('d', d)
       this.names = d.data
       for (let i of d.data) {
         console.log('i', i['Designation'])
-        if (i['Designation'].toString().toLowerCase().includes('manager')) {
+        if (i['Designation'].toString().toLowerCase().includes('manager')){
           this.managerName.push(i)
         }
       }
     })
   }
-  typeaheadNoResults($event) {
-
+  isNameError = false
+  typeaheadNoResults(event) {
+    this.isNameError = event
+    console.log('isNameError', this.isNameError)
   }
+  isNameSelected = false
+  nameChange() {
+    console.log('nameChange',this.selectedName,this.firstName.value)
+    if (this.firstName.value == this.selectedName) {
+      this.isNameSelected = true
+      this.firstName.markAsUntouched()
+    } else {
+      this.isNameSelected = false
+    }
+    console.log('isNameSelected', this.isNameSelected)
+  }
+  selectedName
   onSelect(event: TypeaheadMatch): void {
     this.id = event.item.ID[0]
+    this.selectedName = event.item.Firstname
     console.log('id', event.item)
-    if (event.item.Designation == 'Manager') {
+    if (event.item.Designation.toString().toLowerCase().includes('manager')) {
       this.reviewer.reset()
       this.reviewer.disable()
     } else {
@@ -118,8 +132,15 @@ export class ReviewTemplateComponent implements OnInit {
       this.reviewer.enable()
     }
     this.designation = event.item.Designation
-
+    this.isNameSelected = true
   }
+
+  isReviewerError=false
+  typeaheadNoResultsReviewer(event){
+    this.isReviewerError=event
+    console.log("isReviewerError",this.isReviewerError) 
+  }
+
   onSelectReviewer(event: TypeaheadMatch): void {
     this.reviewerID = event.item.ID[0]
     let stars: any = document.getElementsByClassName('req1')
@@ -127,14 +148,31 @@ export class ReviewTemplateComponent implements OnInit {
       star.style.display = 'none'
     }
     this.communication.clearValidators()
-    this.selfInitiative.clearValidators()
-    this.projectDelivery.clearValidators()
-    this.tat.clearValidators()
-    console.log('id', this.reviewerID)
-  }
-  nameChange() {
+    this.communication.reset('')
+    this.communication.setValue(0)
+    this.communication.markAsUntouched()
 
+    this.selfInitiative.clearValidators()
+    this.selfInitiative.reset('')
+    this.selfInitiative.setValue(0)
+    this.selfInitiative.markAsUntouched()
+    
+
+
+    this.projectDelivery.clearValidators()
+    this.projectDelivery.reset('')
+    this.projectDelivery.setValue(0)
+    this.projectDelivery.markAsUntouched()
+
+    this.tat.clearValidators()
+    this.tat.reset('')
+    this.tat.setValue(0)
+    this.tat.markAsUntouched()
+
+    this.reviewForm.updateValueAndValidity()
+    console.log('id', this.reviewerID,this.communication.valid)
   }
+  
   submit() {
 
     let data
@@ -142,10 +180,10 @@ export class ReviewTemplateComponent implements OnInit {
       data = { reviewerID: this.reviewerID, id: this.id, form: this.reviewForm.value, status: 2 }
 
     }
-    else if(this.action == 'Submit Feedback'){
+    else if (this.action == 'Submit Feedback') {
       data = { reviewerID: sessionStorage.getItem('userID'), id: this.id, form: this.reviewForm.value, status: 1 }
-    } 
-    
+    }
+
     else {
       data = { reviewerID: sessionStorage.getItem('userID'), id: this.id, form: this.reviewForm.value, status: 1 }
     }
@@ -157,13 +195,13 @@ export class ReviewTemplateComponent implements OnInit {
         '/addReview'
       )
     }
-    else if (this.action == 'Update Review' ||this.action == 'Submit Feedback') {
+    else if (this.action == 'Update Review' || this.action == 'Submit Feedback') {
       this.sweetAlert(
         this.api.updateReview('/updateReview', data),
         '/viewReview'
       )
     }
-    
+
   }
 
   clear() {
@@ -172,10 +210,10 @@ export class ReviewTemplateComponent implements OnInit {
     if (this.data) {
       this.department.setValue(this.data.Department)
       this.firstName.setValue(this.data.Firstname)
-    }else{
+    } else {
       this.reviewForm.setValue(this.saveForm)
     }
-    
+
   }
 
 
@@ -184,12 +222,12 @@ export class ReviewTemplateComponent implements OnInit {
 
       let dept = this.department.value
       let reviewer = this.reviewer.value
-      console.log('control', dept, reviewer)
+      // console.log('control', dept, reviewer)
       if (reviewer == '') {
-    
+
       }
       if (dept == '') {
-        console.log('1')
+        // console.log('1')
         return { 'err': { value: 'Enter Department first' } }
       } else {
         return null
