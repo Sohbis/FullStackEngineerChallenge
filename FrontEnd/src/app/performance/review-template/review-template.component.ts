@@ -92,12 +92,13 @@ export class ReviewTemplateComponent implements OnInit {
   }
 
   getNamesOFEmp(e) {
+    let name:string=''
     this.api.empNameByDept('/empNameByDept', { department: e }).subscribe((d: any) => {
       console.log('d', d)
       this.names = d.data
       for (let i of d.data) {
         console.log('i', i['Designation'])
-        if (i['Designation'] == 'Manager') {
+        if (i['Designation'].toString().toLowerCase().includes('manager')) {
           this.managerName.push(i)
         }
       }
