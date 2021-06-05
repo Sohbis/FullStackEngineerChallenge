@@ -7,6 +7,7 @@ My Assumption
 •	I am only doing soft delete of employees in the DB changing their status to 0.
 •	Note there are 3 Status 0 – inactive/removed, 1 – active, 2 – new employee.
 •	Currently for an employee, performance review can added only be added once per month. However, an Admin can update it any time.
+•	Currently using static values for department - [IT,Finance,HR] .
 
 Technology Stack that I am using: Frontend-Angular, Backend- Node js and Database- MS Sql Server.
 
