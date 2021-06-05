@@ -21,7 +21,7 @@ Technology Stack that I am using: Frontend-Angular, Backend- Node js and Databas
 
 For running Angular- 1)npm install, 2)ng s 
 
-For running Node- 1)npm install, 2)npm run serve 3)Change connection string inside NOdeApi folder in Sqlconnect.js with restpect to your SQL server.
+For running Node- 1)npm install,2)Change connection string inside NodeApi folder in Sqlconnect.js with restpect to your SQL server, 3)npm run serve
 
 
 
