@@ -10,6 +10,12 @@ My Assumption
 
 Technology Stack that I am using: Frontend-Angular, Backend- Node js and Database- MS Sql Server.
 
+For running Angular- 1)npm install, 2)ng s 
+
+For running Node- 1)npm install, 2)npm run serve 3)Change connection string inside NOdeApi folder in Sqlconnect.js with restpect to your SQL server.
+
+
+
 
 # Full Stack Developer Challenge
 This is an interview challengs. Please feel free to fork. Pull Requests will be ignored.
